@@ -69,6 +69,8 @@ class DraggableHome extends StatefulWidget {
   /// bottomNavigationBar: Snack bars slide from underneath the bottom navigation bar while bottom sheets are stacked on top.
   final Widget? bottomNavigationBar;
 
+  final bool? ignoreBottomNavigationBarWidget;
+
   /// floatingActionButtonLocation: An object that defines a position for the FloatingActionButton based on the Scaffold's ScaffoldPrelayoutGeometry.
 
   final FloatingActionButtonLocation? floatingActionButtonLocation;
@@ -97,6 +99,7 @@ class DraggableHome extends StatefulWidget {
     this.stretchMaxHeight = 0.9,
     this.bottomSheet,
     this.bottomNavigationBarHeight = kBottomNavigationBarHeight,
+    this.ignoreBottomNavigationBarWidget = false,
     this.bottomNavigationBar,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
@@ -276,8 +279,15 @@ class _DraggableHomeState extends State<DraggableHome> {
   }
 
   SliverList sliverList(BuildContext context, double topHeight) {
-    final double bottomPadding =
-        widget.bottomNavigationBar == null ? 0 : kBottomNavigationBarHeight;
+    double bottomPadding = 0;
+    if (widget.ignoreBottomNavigationBarWidget == false) {
+      bottomPadding =
+          widget.bottomNavigationBar == null ? 0 : kBottomNavigationBarHeight;
+    } else {
+      bottomPadding =
+          widget.bottomNavigationBarHeight ?? kBottomNavigationBarHeight;
+    }
+
     return SliverList(
       delegate: SliverChildListDelegate(
         [
