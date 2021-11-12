@@ -39,6 +39,9 @@ class DraggableHome extends StatefulWidget {
   /// backgroundColor: The color of the Material widget that underlies the entire DraggableHome body.
   final Color? backgroundColor;
 
+  /// backgroundColor: The color of the Material widget that underlies the entire DraggableHome body.
+  final Color? appBarBackgroundColor;
+
   /// curvedBodyRadius: Creates a border top left and top right radius of body, Default radius of the body is 20.0. For no radius simply set value to 0.
   final double curvedBodyRadius;
 
@@ -90,6 +93,7 @@ class DraggableHome extends StatefulWidget {
     required this.headerWidget,
     this.headerBottomBar,
     this.backgroundColor,
+    this.appBarBackgroundColor,
     this.curvedBodyRadius = 20,
     required this.body,
     this.drawer,
@@ -188,6 +192,8 @@ class _DraggableHomeState extends State<DraggableHome> {
             List<bool> streams = (snapshot.data ?? [false, false]);
 
             return SliverAppBar(
+              backgroundColor: widget.appBarBackgroundColor ??
+                  Theme.of(context).primaryColor,
               leading: widget.alwaysShowLeadingAndAction
                   ? widget.leading
                   : !streams[0]
